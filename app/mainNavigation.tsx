@@ -11,7 +11,7 @@ export function MainNav(){
     <>
         {account? (<Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
+        
       </Stack>):<SpaceLogin/>}
     </>
     

@@ -66,7 +66,7 @@ const NFTCard: React.FC<NFTCardProps> = ({ nft, refetch, refetchStakedInfo }) =>
   return (
    <>
       {isModalOpen ? (
-        <ThemedView className="absolute inset-0 bg-black bg-opacity-50 justify-center items-center p-5">
+        <ThemedView className="bg-gray-900 border border-violet-950 w-[250px]  flex flex-col gap-1 justify-between p-5 rounded-lg items-center mb-5">
           <TouchableOpacity onPress={handleModalClose} style={styles.closeButton}>
             <Ionicons name="close-circle" size={24} color={iconColor} />
           </TouchableOpacity>
