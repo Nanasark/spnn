@@ -19,6 +19,7 @@ export type ThemedButtonProps = {
     variant?: "primary" | "secondary";
     children?: ReactNode; // Add children property
     style?: ViewStyle; // Add style property
+    className?:string
 };
 
 export function ThemedButton(props: ThemedButtonProps) {
@@ -56,7 +57,7 @@ export function ThemedButton(props: ThemedButtonProps) {
             {props.loading && (
                 <ActivityIndicator animating={props.loading} color={textColor} />
             )}
-            <ThemedText type="defaultSemiBold" style={{ color: textColor }}>
+            <ThemedText className="" type="defaultSemiBold" style={{ color: textColor }}>
                 {props.loading ? props.loadingTitle : props.title}
             </ThemedText>
         </TouchableOpacity>

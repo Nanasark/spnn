@@ -13,6 +13,7 @@ import { claimTo, getNFTs, ownerOf, totalSupply } from "thirdweb/extensions/erc7
 import { NFT_CONTRACT } from '@/utils/contracts';
 import NFTCard from '@/components/cards/NFTCard';
 import { config } from '@/strings/config';
+import { PlainParallaxScrollView } from '@/components/PlainParallaxScrollView';
 
 
 
@@ -76,7 +77,8 @@ export default function HomeScreen() {
   const iconColor = useThemeColor({}, 'text');
 
   return (
-    <ThemedView style={styles.container}>
+    <PlainParallaxScrollView>
+    <ThemedView className="">
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={toggleCollapse} style={styles.userIconContainer}>
           <Ionicons name="person-circle" size={40} color={iconColor} />
@@ -90,14 +92,15 @@ export default function HomeScreen() {
       )}
 
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">NFT Staking</ThemedText>
+        <ThemedText className="bg-slate-300" type="title">NFT Staking</ThemedText>
       </ThemedView>
 
-      <ThemedView>
-        <ThemedText>Owned NFTs</ThemedText>
-        <ThemedView style={styles.nftContainer}>
+      <ThemedView className='flex flex-col items-center gap-3 justify-center h-screen bg-white w-screen'>
+        <ThemedText className='bg-white'>Owned NFTs</ThemedText>
+        <ThemedView className="flex flex-col items-center bg-slate-300 justify-center">
           {ownedNFTs && ownedNFTs.length > 0 ? (
             ownedNFTs.map((nft) => (
+
               <NFTCard
                 key={nft.id}
                 nft={nft}
@@ -105,11 +108,14 @@ export default function HomeScreen() {
               />
             ))
           ) : (
-            <ThemedText>You own 0 NFTs</ThemedText>
+            <ThemedText className=''>You own 0 NFTs</ThemedText>
           )}
         </ThemedView>
       </ThemedView>
     </ThemedView>
+
+   
+    </PlainParallaxScrollView>
   );
 }
 
