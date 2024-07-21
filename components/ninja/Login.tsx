@@ -25,18 +25,19 @@ import { shortenAddress } from "thirdweb/utils";
 import { ThemedButton } from "@/components/ThemedButton";
 import { useEffect, useState } from "react";
 import { createWallet, getWalletInfo, Wallet } from "thirdweb/wallets";
+import { View } from "react-native-reanimated/lib/typescript/Animated";
+import { config } from "@/strings/config";
 
 const metamaskWallet = createWallet("io.metamask");
-
 
 const wallets = [
     metamaskWallet,
 ];
 const externalWallets = [metamaskWallet];
 
-export default function HomeScreen() {
+export default function LoginScreen() {
     return (
-      <ThemedView>
+      <ThemedView className="">
             <ThemedView style={styles.titleContainer}>
                 <ThemedText type="title">Connecting Wallets</ThemedText>
             </ThemedView>
@@ -233,13 +234,7 @@ const styles = StyleSheet.create({
         gap: 16,
         padding: 16,
     },
-    reactLogo: {
-        height: "100%",
-        width: "100%",
-        bottom: 0,
-        left: 0,
-        position: "absolute",
-    },
+    
     rowContainer: {
         flexDirection: "row",
         flexWrap: "wrap",

@@ -52,43 +52,7 @@ const RegistrationModal = ({ visible, onClose }: any) => (
   </Modal>
 );
 
-// Login Modal
-const LoginModal = ({ visible, onClose }: any) => (
-  <Modal
-    transparent={true}
-    animationType="slide"
-    visible={visible}
-    onRequestClose={onClose}
-  >
-    <ThemedView className="flex-1 justify-center items-center bg-black bg-opacity-60">
-      <ThemedView style={styles.modalContainer}>
-        <ThemedInput
-          style={styles.input}
-          placeholder="Username"
-          placeholderTextColor="#999"
-        />
-        <ThemedInput
-          style={styles.input}
-          placeholder="Password"
-          secureTextEntry
-          placeholderTextColor="#999"
-        />
-        <TouchableOpacity
-          style={styles.primaryButton}
-          onPress={() => {/* Handle login */}}
-        >
-          <ThemedText style={styles.buttonText}>Login</ThemedText>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.secondaryButton}
-          onPress={onClose}
-        >
-          <ThemedText style={styles.buttonText}>Close</ThemedText>
-        </TouchableOpacity>
-      </ThemedView>
-    </ThemedView>
-  </Modal>
-);
+
 
 // SpaceLogin Modal
 const SpaceLoginModal = ({ visible, onClose }: any) => (
@@ -137,12 +101,7 @@ export default function Settings() {
           >
             <ThemedText style={styles.buttonText}>Register</ThemedText>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.primaryButton}
-            onPress={() => setLoginModalVisible(true)}
-          >
-            <ThemedText style={styles.buttonText}>Login</ThemedText>
-          </TouchableOpacity>
+          
           <TouchableOpacity
             style={styles.iconButton}
             onPress={() => setSpaceLoginModalVisible(true)}
@@ -156,10 +115,7 @@ export default function Settings() {
         visible={isRegistrationModalVisible}
         onClose={() => setRegistrationModalVisible(false)}
       />
-      <LoginModal
-        visible={isLoginModalVisible}
-        onClose={() => setLoginModalVisible(false)}
-      />
+     
       <SpaceLoginModal
         visible={isSpaceLoginModalVisible}
         onClose={() => setSpaceLoginModalVisible(false)}
