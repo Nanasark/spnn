@@ -34,7 +34,8 @@ export default function RootLayout() {
     <ThirdwebProvider>
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       
-     <MainNav/>
+        <MainNav />
+    
     </ThemeProvider>
     </ThirdwebProvider>
   );

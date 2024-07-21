@@ -7,39 +7,42 @@ import {
     ViewStyle,
 } from "react-native";
 import { ThemedText } from "./ThemedText";
-import { ReactNode } from "react"; // Import ReactNode to use for the children type
+import { ReactNode } from "react";
 
 export type ThemedButtonProps = {
     lightColor?: string;
     darkColor?: string;
     onPress?: PressableProps["onPress"];
-    title?: string; // Make title optional since children might be used instead
+    title?: string;
     loading?: boolean;
     loadingTitle?: string;
     variant?: "primary" | "secondary";
-    children?: ReactNode; // Add children property
-    style?: ViewStyle; // Add style property
-    className?:string
+    children?: ReactNode;
+    style?: ViewStyle;
+    className?: string;
 };
 
 export function ThemedButton(props: ThemedButtonProps) {
-    const variant = props.variant ?? "primary";
-    const bg = useThemeColor(
-        { light: props.lightColor, dark: props.darkColor },
-        "tint",
-    );
-    const textInverted = useThemeColor(
-        { light: props.lightColor, dark: props.darkColor },
-        "textInverted",
-    );
-    const text = useThemeColor(
-        { light: props.lightColor, dark: props.darkColor },
-        "text",
-    );
+    const {
+        lightColor,
+        darkColor,
+        onPress,
+        title,
+        loading,
+        loadingTitle,
+        variant = "primary",
+        children,
+        style,
+    } = props;
+
+    const bg = useThemeColor({ light: lightColor, dark: darkColor }, "tint");
+    const textInverted = useThemeColor({ light: lightColor, dark: darkColor }, "textInverted");
+    const text = useThemeColor({ light: lightColor, dark: darkColor }, "text");
     const textColor = variant === "secondary" ? text : textInverted;
+
     return (
         <TouchableOpacity
-            disabled={props.loading}
+            disabled={loading}
             activeOpacity={0.5}
             style={[
                 styles.button,
@@ -48,25 +51,26 @@ export function ThemedButton(props: ThemedButtonProps) {
                     borderWidth: variant === "secondary" ? 1 : 0,
                     backgroundColor: variant === "secondary" ? "transparent" : bg,
                 },
-                props.style, // Apply the custom style prop here
+                style,
             ]}
             onPress={(e) => {
                 props.onPress?.(e);
             }}
         >
-            {props.loading && (
-                <ActivityIndicator animating={props.loading} color={textColor} />
+            {loading && <ActivityIndicator animating={loading} color={textColor} />}
+            {title || loadingTitle ? (
+                <ThemedText type="defaultSemiBold" style={{ color: textColor }}>
+                    {loading ? loadingTitle : title}
+                </ThemedText>
+            ) : (
+                children
             )}
-            <ThemedText className="" type="defaultSemiBold" style={{ color: textColor }}>
-                {props.loading ? props.loadingTitle : props.title}
-            </ThemedText>
         </TouchableOpacity>
     );
 }
 
 const styles = StyleSheet.create({
     button: {
-        flex: 1,
         flexDirection: "row",
         gap: 8,
         padding: 12,

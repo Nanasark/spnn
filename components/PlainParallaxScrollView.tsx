@@ -1,67 +1,53 @@
-import type { PropsWithChildren } from "react";
+import type { PropsWithChildren, ReactNode } from "react";
 import { StyleSheet } from "react-native";
-import Animated, {
-	interpolate,
-	useAnimatedRef,
-	useAnimatedStyle,
-	useScrollViewOffset,
-} from "react-native-reanimated";
-
+import Animated from "react-native-reanimated";
 import { ThemedView } from "@/components/ThemedView";
 
-const HEADER_HEIGHT =10;
+const HEADER_HEIGHT = 100; // Adjust as needed
 
-type Props = PropsWithChildren<{}>;
+type Props = PropsWithChildren<{
+  className?: string;
+  headerClassName?: string;
+  header?: ReactNode;
+}>;
 
-export function PlainParallaxScrollView({ children }: Props) {
-	const scrollRef = useAnimatedRef<Animated.ScrollView>();
-	const scrollOffset = useScrollViewOffset(scrollRef);
-
-	const headerAnimatedStyle = useAnimatedStyle(() => {
-		return {
-			transform: [
-				{
-					translateY: interpolate(
-						scrollOffset.value,
-						[-HEADER_HEIGHT, 0, HEADER_HEIGHT],
-						[-HEADER_HEIGHT / 2, 0, HEADER_HEIGHT * 0.75],
-					),
-				},
-				{
-					scale: interpolate(
-						scrollOffset.value,
-						[-HEADER_HEIGHT, 0, HEADER_HEIGHT],
-						[2, 1, 1],
-					),
-				},
-			],
-		};
-	});
-
-	return (
-		<ThemedView style={styles.container}>
-			<Animated.ScrollView ref={scrollRef} scrollEventThrottle={16}>
-				<Animated.View
-					style={[styles.header, headerAnimatedStyle]}
-				/>
-				<ThemedView style={styles.content}>{children}</ThemedView>
-			</Animated.ScrollView>
-		</ThemedView>
-	);
+export function PlainParallaxScrollView({ className, headerClassName, children, header }: Props) {
+  return (
+    <ThemedView className={className} style={styles.container}>
+      <ThemedView className={headerClassName} style={styles.header}>
+        {header}
+      </ThemedView>
+      <Animated.ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollContainer}
+      >
+        <ThemedView>{children}</ThemedView>
+      </Animated.ScrollView>
+    </ThemedView>
+  );
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-	},
-	header: {
-		height: HEADER_HEIGHT,
-		overflow: "hidden",
-	},
-	content: {
-		flex: 1,
-		padding: 32,
-		gap: 16,
-		overflow: "hidden",
-	},
+  container: {
+    flex: 1,
+  },
+  header: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: HEADER_HEIGHT,
+    zIndex: 1, // Ensures header stays above content
+    paddingTop: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 16,
+  },
+  scrollView: {
+    flex: 1,
+    marginTop: HEADER_HEIGHT,
+  },
+  scrollContainer: {
+    flexGrow: 1,
+  },
 });

@@ -1,7 +1,7 @@
 
 import { createThirdwebClient, getContract } from "thirdweb";
 import {polygonAmoy } from "thirdweb/chains";
-
+import { config } from "@/strings/config";
 const clientId = process.env.EXPO_PUBLIC_THIRDWEB_CLIENT_ID!;
 
 if (!clientId) {
@@ -21,4 +21,5 @@ export const contract = getContract({
 	address: "0x82e50a6BF13A70366eDFC871f8FB8a428C43Dc03",
 	chain,
 });
+
 

@@ -25,12 +25,10 @@ import { shortenAddress } from "thirdweb/utils";
 import { ThemedButton } from "@/components/ThemedButton";
 import { useEffect, useState } from "react";
 import { createWallet, getWalletInfo, Wallet } from "thirdweb/wallets";
-import { View } from "react-native-reanimated/lib/typescript/Animated";
-import { config } from "@/strings/config";
 
 const metamaskWallet = createWallet("io.metamask");
-const ca = config.nftContract as `0x${string}`
-console.log(ca)
+
+
 const wallets = [
     metamaskWallet,
 ];
